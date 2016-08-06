@@ -46,3 +46,8 @@ end
 
 # Use Rails 12factor
 gem 'rails_12factor', group: :production
+
+# Use RSpec for TDD
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+end
