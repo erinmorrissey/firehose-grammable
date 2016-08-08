@@ -58,3 +58,6 @@ gem 'sprockets', '2.11.0'
 
 # Use Simpleform
 gem 'simple_form'
+
+# Use Devise for user authentication
+gem 'devise', '>= 3.2.4'
