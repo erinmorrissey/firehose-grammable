@@ -23,4 +23,19 @@ RSpec.describe GramsController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "grams#create action" do
+    it "should successfully create a new gram in our database" do
+      # will populate the 'message' field with 'Hello!' and triggers the POST request
+      post :create, gram: {message: "Hello!"}
+      # tells our test that we expect the user to be re-directed to the homepage
+      expect(response).to redirect_to root_path
+
+      # tells our test that we expect an item to be found in the DB, in the 
+      # last/most recent spot, with a value of "Hello!" in the 'message' field
+      gram = Gram.last
+      expect(gram.message).to eq("Hello!")
+
+    end
+  end
 end
