@@ -18,14 +18,37 @@ RSpec.describe GramsController, type: :controller do
   end
 
   describe "grams#new action" do
+    it "should require users to be logged in to view the grams#new form page" do
+      get :new
+      expect(response).to redirect_to new_user_session_path
+    end
+
     it "should successfully show the new form" do
+      # creates a test user & logs them in
+      user = User.create(
+        email:                 'fakeuser@gmail.com',
+        password:              'secretPw',
+        password_confirmation: 'secretPw'
+        )
+      sign_in user
       get :new
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "grams#create action" do
+    it "should require users to be logged in to submit the grams#new form" do
+      post :create, gram: {message: "Hello!"}
+      expect(response).to redirect_to new_user_session_path
+    end
+
     it "should successfully create a new gram in our database" do
+      user = User.create(
+        email:                 'fakeuser@gmail.com',
+        password:              'secretPw',
+        password_confirmation: 'secretPw'
+        )
+      sign_in user
       # will populate the 'message' field with 'Hello!' and triggers the POST request
       post :create, gram: {message: "Hello!"}
       # tells our test that we expect the user to be re-directed to the homepage
@@ -35,9 +58,17 @@ RSpec.describe GramsController, type: :controller do
       # last/most recent spot, with a value of "Hello!" in the 'message' field
       gram = Gram.last
       expect(gram.message).to eq("Hello!")
+      # makes sure the user associated with the gram is the same as the signed-in user
+      expect(gram.user).to eq(user)
     end
 
     it "should properly deal with validation errors" do
+      user = User.create(
+        email:                 'fakeuser@gmail.com',
+        password:              'secretPw',
+        password_confirmation: 'secretPw'
+        )
+      sign_in user
       post :create, gram: {message: ""}
       expect(response).to have_http_status(:unprocessable_entity)
       expect(Gram.count).to eq 0

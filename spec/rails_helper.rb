@@ -59,4 +59,7 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # lets us act as a signed in user in test specs
+  config.include Devise::TestHelpers, type: :controller
 end
