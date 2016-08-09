@@ -80,6 +80,46 @@ RSpec.describe GramsController, type: :controller do
       expect(response).to have_http_status(:unprocessable_entity)
       expect(Gram.count).to eq 0
     end
+  end
 
+
+  describe "grams#edit action" do
+    it "should successfully show the edit form - if the gram is found" do
+      gram = FactoryGirl.create(:gram)
+      get :edit, id: gram.id
+      expect(response).to have_http_status(:success)
+    end
+
+    it "should return a 404 error - if the gram is NOT found" do
+      get :edit, id: 'TACOCAT'
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
+
+  describe "grams#update action" do
+    it "should successfully update the gram in the DB & re-direct the user to the gram#show view - if the gram is found" do
+      gram = FactoryGirl.create(:gram, message: "Initial value")
+      patch :update, id: gram.id, gram: { message: "Changed" }
+      expect(response).to redirect_to gram_path
+      # verifies the gram we originally created for the test had it's message
+      # updated - AFTER we reload the contents of the record, then we can check
+      # that that the :message value was updated
+      gram.reload
+      expect(gram.message).to eq "Changed"
+    end
+
+    it "should return a 404 error - if the gram is NOT found" do
+      patch :update, id: 'TACOCAT', gram: { message: "Changed" }
+      expect(response).to have_http_status(:not_found)
+    end
+    
+    it "should render the gram#edit form with status of unprocessable_entity, with validation errors displayed - if the form validation fails" do
+      gram = FactoryGirl.create(:gram, message: "Initial value")
+      patch :update, id: gram.id, gram: { message: "" }
+      expect(response).to have_http_status(:unprocessable_entity)
+      gram.reload
+      expect(gram.message).to eq "Initial value"
+    end
   end
 end
