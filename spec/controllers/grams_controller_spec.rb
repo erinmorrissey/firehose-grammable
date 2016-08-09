@@ -17,6 +17,24 @@ RSpec.describe GramsController, type: :controller do
     end
   end
 
+
+  describe "grams#show action" do
+    it "should successfully show the page - if the gram is found" do
+      # pushes a new gram into the DB
+      gram = FactoryGirl.create(:gram)
+      # triggers an HTTP GET request to /grams/:id, where the :id
+      # is replaced by the gram we just created with FG
+      get :show, id: gram.id
+      expect(response).to have_http_status(:success)
+    end
+
+    it "should return a 404 error - if the gram is NOT found" do
+      get :show, id: 'TACOCAT'
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
+
   describe "grams#new action" do
     it "should require users to be logged in to view the grams#new form page" do
       get :new
@@ -31,6 +49,7 @@ RSpec.describe GramsController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
+
 
   describe "grams#create action" do
     it "should require users to be logged in to submit the grams#new form" do
