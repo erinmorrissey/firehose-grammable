@@ -48,8 +48,11 @@ end
 gem 'rails_12factor', group: :production
 
 # Use RSpec for TDD
+# Use FactoryGirl for DRY testing
+# these gems aren't usable on Heroku b/c of the group settings
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
+  gem "factory_girl_rails", "~> 4.0"
 end
 
 # Use Bootstrap for SASS gem
