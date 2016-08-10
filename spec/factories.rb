@@ -1,4 +1,7 @@
 FactoryGirl.define do
+  factory :comment do
+    
+  end
 
   # will store a user in our DB with placeholder data when we
   # use the code FactoryGirl.create(:user) in our test specs

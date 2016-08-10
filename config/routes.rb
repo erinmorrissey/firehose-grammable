@@ -15,7 +15,10 @@ Grammable::Application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :grams
+  resources :grams do
+    resources :comments, only: :create
+  end
+  
 
   # Example resource route with options:
   #   resources :products do
