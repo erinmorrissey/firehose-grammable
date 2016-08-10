@@ -62,4 +62,7 @@ RSpec.configure do |config|
 
   # lets us act as a signed in user in test specs
   config.include Devise::TestHelpers, type: :controller
+
+  # lets us add a test image to be used when creating test gram DB records
+  include ActionDispatch::TestProcess
 end

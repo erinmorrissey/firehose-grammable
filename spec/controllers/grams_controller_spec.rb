@@ -61,7 +61,10 @@ RSpec.describe GramsController, type: :controller do
       user = FactoryGirl.create(:user)
       sign_in user
       # will populate the 'message' field with 'Hello!' and triggers the POST request
-      post :create, gram: {message: "Hello!"}
+      post :create, gram: {
+        message: "Hello!",
+        picture: fixture_file_upload("/picture.png", 'image/png')
+      }
       # tells our test that we expect the user to be re-directed to the homepage
       expect(response).to redirect_to root_path
 
