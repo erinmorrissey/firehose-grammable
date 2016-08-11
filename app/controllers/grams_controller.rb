@@ -46,7 +46,7 @@ class GramsController < ApplicationController
     return render_not_found(:forbidden) if @gram.user != current_user
     @gram.update_attributes(gram_params)
     if @gram.valid?
-      redirect_to gram_path
+      redirect_to root_path
     else
       return render :edit, status: :unprocessable_entity
     end

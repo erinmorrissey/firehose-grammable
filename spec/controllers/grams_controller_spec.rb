@@ -132,11 +132,11 @@ RSpec.describe GramsController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
 
-    it "should successfully update the gram in the DB & re-direct the user to the gram#show view - if the gram is found" do
+    it "should successfully update the gram in the DB & re-direct the user to the homepage - if the gram is found" do
       gram = FactoryGirl.create(:gram, message: "Initial value")
       sign_in gram.user
       patch :update, id: gram.id, gram: { message: "Changed" }
-      expect(response).to redirect_to gram_path
+      expect(response).to redirect_to root_path
       # verifies the gram we originally created for the test had it's message
       # updated - AFTER we reload the contents of the record, then we can check
       # that that the :message value was updated
