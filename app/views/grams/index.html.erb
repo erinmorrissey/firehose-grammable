@@ -1,13 +1,38 @@
-<h1>Grams!</h1>
-
 <% @grams.each do |gram| %>
-<div>
-  <%= gram.message %>
-  <%= image_tag gram.picture %>
-  <hr />
-  <%= simple_form_for @comment do |f| %>
-    <%= f.input :message %>
-    <%= f.submit "Post Comment" %>
+<div class="gramblock">
+
+  <span class="handle pull-left"><%= gram.user.username %></span>
+  <% if current_user && current_user == gram.user %>
+    <%= link_to 'Delete', gram_path(gram), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-xs btn-default pull-right' %>
+    <%= link_to 'Edit', edit_gram_path(gram), class: 'btn btn-xs btn-default pull-right' %>
   <% end %>
+  <br class="clr" />
+  <%= image_tag gram.picture, class: 'img-responsive' %>
+  <p class="postmessage"><%= gram.message %></p>
+
+  <hr />
+
+  <div class="comments">
+    <% if gram.comments.present? %>
+      <h3>Comments</h3>
+      <% gram.comments.each do |comment| %>
+        <div class="comment">
+          <span class="comment_handle"><%= comment.user.username %></span>
+          <%= comment.message %>
+        </div>
+      <% end %>
+
+      <hr />
+
+    <% end %>
+
+
+    <h3>Add a Comment</h3>
+    <%= simple_form_for Comment.new, url: gram_comments_path(gram) do |f| %>
+      <%= f.input :message, label: false %>
+      <%= f.submit 'Post Comment', class: 'btn btn-success btn-fullwidth' %>
+    <% end %>
+  </div>
+
 </div>
 <% end %>

@@ -1,6 +1,10 @@
 <h1>Edit Your Gram</h1>
 
+<br />
+
 <%= simple_form_for @gram do |f| %>
   <%= f.input :message %>
-  <%= f.submit "Update Gram" %>
+  <br />
+  <%= f.input :picture %>
+  <%= f.submit "Update Gram", class: 'btn btn-success btn-fullwidth' %>
 <% end %>
