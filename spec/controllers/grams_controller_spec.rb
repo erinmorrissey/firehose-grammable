@@ -19,14 +19,15 @@ RSpec.describe GramsController, type: :controller do
 
 
   describe "grams#show action" do
-    it "should successfully show the page - if the gram is found" do
-      # pushes a new gram into the DB
-      gram = FactoryGirl.create(:gram)
-      # triggers an HTTP GET request to /grams/:id, where the :id
-      # is replaced by the gram we just created with FG
-      get :show, id: gram.id
-      expect(response).to have_http_status(:success)
-    end
+    # test removed b/c gram#show view not needed
+    # it "should successfully show the page - if the gram is found" do
+    #   # pushes a new gram into the DB
+    #   gram = FactoryGirl.create(:gram)
+    #   # triggers an HTTP GET request to /grams/:id, where the :id
+    #   # is replaced by the gram we just created with FG
+    #   get :show, id: gram.id
+    #   expect(response).to have_http_status(:success)
+    # end
 
     it "should return a 404 error - if the gram is NOT found" do
       get :show, id: 'TACOCAT'

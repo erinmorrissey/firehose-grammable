@@ -9,7 +9,7 @@ class GramsController < ApplicationController
 
   def show
     # .find_by_id will return nil if a Gram can not be found
-    @gram = Gram.find_by_id(params[:id])
+    # @gram = Gram.find_by_id(params[:id])   => deleted b/c show view not needed
     return render_not_found if @gram.blank?
   end
 
