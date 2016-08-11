@@ -3,7 +3,7 @@ class GramsController < ApplicationController
 
 
   def index
-    @grams = Gram.all
+    @grams = Gram.all.reverse_order
   end
 
 
