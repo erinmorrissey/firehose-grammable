@@ -40,9 +40,14 @@ a:hover, a:active, a:focus {
 
 #bodycol {
   background-color: white;
-  margin-bottom:-9999px;
-  padding-bottom:9999px;
-  overflow:hidden;
+}
+
+@media (min-width: 768px) {
+  #bodycol {
+    margin-bottom:-9999px;
+    padding-bottom:9999px;
+    overflow:hidden;
+  }
 }
 
 #headerrow {
