@@ -74,3 +74,6 @@ gem 'fog'
 
 # Use MiniMagick for image processing
 gem 'mini_magick', '~> 4.3.1'
+
+# Use RuboCop to enforce Ruby style guidelines
+gem 'rubocop', '~> 0.42.0', require: false
