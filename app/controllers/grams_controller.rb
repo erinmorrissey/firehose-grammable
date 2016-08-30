@@ -1,11 +1,9 @@
 class GramsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
-
   def index
     @grams = Gram.all.reverse_order
   end
-
 
   def show
     # .find_by_id will return nil if a Gram can not be found
@@ -13,14 +11,12 @@ class GramsController < ApplicationController
     return render_not_found if @gram.blank?
   end
 
-
   def new
     @gram = Gram.new
   end
 
-
   def create
-    #@gram = Gram.create(gram_params)
+    # @gram = Gram.create(gram_params)
     # b/c we specified that Users will have_many grams, we can now call
     # create on current_user.grams, which will populate the user_id field
     # when creating a gram
@@ -32,13 +28,11 @@ class GramsController < ApplicationController
     end
   end
 
-
   def edit
     @gram = Gram.find_by_id(params[:id])
     return render_not_found if @gram.blank?
     return render_not_found(:forbidden) if @gram.user != current_user
   end
-
 
   def update
     @gram = Gram.find_by_id(params[:id])
@@ -52,7 +46,6 @@ class GramsController < ApplicationController
     end
   end
 
-
   def destroy
     @gram = Gram.find_by_id(params[:id])
     return render_not_found if @gram.blank?
@@ -61,9 +54,7 @@ class GramsController < ApplicationController
     redirect_to root_path
   end
 
-
   private
-
 
   def gram_params
     params.require(:gram).permit(:message, :picture)
